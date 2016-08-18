@@ -37,16 +37,17 @@
 			city = encodeURIComponent(city);
 			/// Call open weather API to pull data
 			$.ajax({
-				url: "http://api.openweathermap.org/data/2.5/find?appid=2de143494c0b295cca9337e1e96b00e0&"
-				+ "q=" + city + "&units=imperial"
+				url: "http://api.openweathermap.org/data/2.5/find?appid=45eb534ece2dc69fcd1e77c6e9cbca88&"
+				+ "q=" + city + "&units=Kelvin"
 			}).done(function (data) {
 				/// check you have data to report on
 				if (data && data.list && data.list.length) {
 					/// fill in the UI with the new data
 					var report = data.list[0];
+					var celciusTem = (report.main.temp-273.15).toFixed(1);
 					$('#location').text(report.name);
 					$('#summary').text(report.weather.description);
-					$('#temp').text(report.main.temp + " degrees");
+					$('#temp').text(celciusTem + " degrees");
 					$('#rang').text("Low: " + report.main.temp_min + " - High: " + report.main.temp_max);
 					$('#clouds').text(report.clouds.all > 50 ? "Cloudy" : "Clear Skys");
 				}
